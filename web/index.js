@@ -3,10 +3,12 @@ import { join } from "path";
 import { readFileSync } from "fs";
 import express from "express";
 import serveStatic from "serve-static";
-
+import "dotenv/config";
 import shopify from "./shopify.js";
 import productCreator from "./product-creator.js";
 import GDPRWebhookHandlers from "./gdpr.js";
+
+import mongoose from "mongoose";
 
 const PORT = parseInt(
   process.env.BACKEND_PORT || process.env.PORT || "3000",
@@ -18,6 +20,12 @@ const STATIC_PATH =
     ? `${process.cwd()}/frontend/dist`
     : `${process.cwd()}/frontend/`;
 
+    // MongoDB Connection
+const mongoUrl =
+process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/shopify-express-app";
+
+mongoose.connect(mongoUrl) .then(() => console.log('MongoDB Connected'))
+.catch(err => console.log(err));;
 const app = express();
 
 // Set up Shopify authentication and webhook handling

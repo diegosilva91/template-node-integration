@@ -2,19 +2,19 @@
 
 name = "integration plus v1"
 client_id = "ff3b941e8550ebdf118f88c3cb1c269c"
-application_url = "https://revenue-traditional-aircraft-chevy.trycloudflare.com"
+application_url = "https://constructed-along-memorial-tract.trycloudflare.com"
 embedded = true
 
 [access_scopes]
 # Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
-scopes = "write_products"
+scopes = "read_products,write_products"
 use_legacy_install_flow = true
 
 [auth]
 redirect_urls = [
-  "https://revenue-traditional-aircraft-chevy.trycloudflare.com/auth/callback",
-  "https://revenue-traditional-aircraft-chevy.trycloudflare.com/auth/shopify/callback",
-  "https://revenue-traditional-aircraft-chevy.trycloudflare.com/api/auth/callback"
+  "https://constructed-along-memorial-tract.trycloudflare.com/auth/callback",
+  "https://constructed-along-memorial-tract.trycloudflare.com/auth/shopify/callback",
+  "https://constructed-along-memorial-tract.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]

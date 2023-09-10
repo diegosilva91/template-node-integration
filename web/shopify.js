@@ -1,10 +1,13 @@
 import { BillingInterval, LATEST_API_VERSION } from "@shopify/shopify-api";
 import { shopifyApp } from "@shopify/shopify-app-express";
-import { SQLiteSessionStorage } from "@shopify/shopify-app-session-storage-sqlite";
+import {MongoDBSessionStorage} from '@shopify/shopify-app-session-storage-mongodb'
 import { restResources } from "@shopify/shopify-api/rest/admin/2023-04";
+import "dotenv/config";
 
-const DB_PATH = `${process.cwd()}/database.sqlite`;
-
+const DB_PATH = process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/shopify_express_app";
+const hostName = process.env.SHOPIFY_APP_URL
+  ? process.env.SHOPIFY_APP_URL.replace(/https:\/\//, "")
+  : "localhost";
 // The transactions with Shopify will always be marked as test transactions, unless NODE_ENV is production.
 // See the ensureBilling helper to learn more about billing in this template.
 const billingConfig = {
@@ -18,9 +21,13 @@ const billingConfig = {
 
 const shopify = shopifyApp({
   api: {
-    apiVersion: LATEST_API_VERSION,
+    apiVersion: process.env.SHOPIFY_API_VERSION,
     restResources,
     billing: undefined, // or replace with billingConfig above to enable example billing
+    hostName: hostName,
+    hostScheme: "https",
+    apiKey: process.env.SHOPIFY_API_KEY,
+    apiSecretKey: process.env.SHOPIFY_API_SECRET,
   },
   auth: {
     path: "/api/auth",
@@ -30,7 +37,8 @@ const shopify = shopifyApp({
     path: "/api/webhooks",
   },
   // This should be replaced with your preferred storage strategy
-  sessionStorage: new SQLiteSessionStorage(DB_PATH),
+  sessionStorage: new MongoDBSessionStorage(
+    DB_PATH)
 });
 
 export default shopify;

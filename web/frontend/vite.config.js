@@ -36,7 +36,7 @@ if (host === "localhost") {
 } else {
   hmrConfig = {
     protocol: "wss",
-    host: "localhost",
+    host: host,
     port: process.env.FRONTEND_PORT,
     clientPort: 443,
   };

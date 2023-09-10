@@ -1,0 +1,25 @@
+# fly.toml app configuration file generated for integration-plus-v1 on 2023-09-10T16:16:05+02:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = "integration-plus-v1"
+primary_region = "mad"
+
+[build]
+
+[env]
+  PORT = "8081"
+  SHOPIFY_APP_URL = "https://integration-plus-v1.fly.dev"
+  SHOPIFY_API_KEY = "ff3b941e8550ebdf118f88c3cb1c269c"
+  SHOPIFY_API_VERSION = "2023-04"
+  SHOPIFY_API_SECRET = "d76b70feadf439eac7a0407a8e6fa0f7"
+  SCOPES = "read_products,write_products"
+
+[http_service]
+  internal_port = 8081
+  force_https = true
+  auto_stop_machines = true
+  auto_start_machines = true
+  min_machines_running = 0
+  processes = ["app"]

@@ -15,6 +15,7 @@ primary_region = "mad"
   SHOPIFY_API_VERSION = "2023-04"
   SHOPIFY_API_SECRET = "d76b70feadf439eac7a0407a8e6fa0f7"
   SCOPES = "read_products,write_products"
+  ENCRYPTION_STRING = "ENCRYPTION_STRING"
 
 [http_service]
   internal_port = 8081

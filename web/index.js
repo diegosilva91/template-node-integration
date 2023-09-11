@@ -7,8 +7,9 @@ import "dotenv/config";
 import shopify from "./shopify.js";
 import productCreator from "./product-creator.js";
 import GDPRWebhookHandlers from "./gdpr.js";
-
+import verifyRequest from "./middlewares/verifyRequest.js";
 import mongoose from "mongoose";
+import userRoutes from "./routes/index.js";
 
 const PORT = parseInt(
   process.env.BACKEND_PORT || process.env.PORT || "3000",
@@ -67,6 +68,9 @@ app.get("/api/products/create", async (_req, res) => {
   }
   res.status(status).send({ success: status === 200, error });
 });
+
+
+app.use("/apps", verifyRequest, userRoutes); //Verify user route requests
 
 app.use(shopify.cspHeaders());
 app.use(serveStatic(STATIC_PATH, { index: false }));

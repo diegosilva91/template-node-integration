@@ -21,7 +21,7 @@ const billingConfig = {
 
 const shopify = shopifyApp({
   api: {
-    apiVersion: process.env.SHOPIFY_API_VERSION,
+    apiVersion: process.env.SHOPIFY_API_VERSION || '2023-04',
     restResources,
     billing: undefined, // or replace with billingConfig above to enable example billing
     hostName: hostName,

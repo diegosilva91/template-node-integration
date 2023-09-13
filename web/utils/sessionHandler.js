@@ -2,7 +2,7 @@ import { Session } from "@shopify/shopify-api";
 import Cryptr from "cryptr";
 import SessionModel from "./models/SessionModel.js";
 
-const cryption = new Cryptr(process.env.ENCRYPTION_STRING);
+const cryption = new Cryptr(process.env.ENCRYPTION_STRING || 'ENCRYPTION_STRING');
 
 const storeSession = async (session) => {
   await SessionModel.findOneAndUpdate(

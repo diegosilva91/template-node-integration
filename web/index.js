@@ -15,7 +15,7 @@ import isShopActive from "./middlewares/isShopActive.js";
 import nonce from 'nonce';
 import crypto from "crypto";
 import request from "request-promise";
-import querystring  from "querystring";
+import querystring from "querystring";
 import cookie from "cookie";
 import bodyParser from "body-parser";
 const PORT = parseInt(
@@ -24,18 +24,18 @@ const PORT = parseInt(
 );
 const shopifyApiPublicKey = process.env.SHOPIFY_API_PUBLIC_KEY;
 const shopifyApiSecretKey = process.env.SHOPIFY_API_SECRET_KEY;
-const appUrl = process.env.SHOPIFY_APP_URL ;
+const appUrl = process.env.SHOPIFY_APP_URL;
 const STATIC_PATH =
   process.env.NODE_ENV === "production"
     ? `${process.cwd()}/frontend/dist`
     : `${process.cwd()}/frontend/`;
 
-    // MongoDB Connection
+// MongoDB Connection
 const mongoUrl =
-process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/shopify-express-app";
+  process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/shopify-express-app";
 
-mongoose.connect(mongoUrl) .then(() => console.log('MongoDB Connected'))
-.catch(err => console.log(err));;
+mongoose.connect(mongoUrl).then(() => console.log('MongoDB Connected'))
+  .catch(err => console.log(err));;
 const app = express();
 
 // Set up Shopify authentication and webhook handling
@@ -104,126 +104,7 @@ app.get("/shopify", (req, res) => {
 });
 // If you are adding routes outside of the /api path, remember to
 // also add a proxy rule for them in web/frontend/vite.config.js
-/*app.get("/shopify/callback", (req, res) => {
-  const { shop, hmac, code, shopState } = req.query;
 
-  if(req.headers.cookie === undefined){
-    return res.status(400).send("request origin cannot be found");
-  }
-  const stateCookie = cookie.parse(req.headers.cookie).shopState;
-
-  if (shopState !== stateCookie) {
-    return res.status(400).send("request origin cannot be found");
-  }
-
-  if (shop && hmac && code) {
-    const Map = Object.assign({}, req.query);
-    delete Map["hmac"];
-    delete Map["signature"];
-
-    const message = 'textBody' in req ? req?.textBody:JSON.stringify(req.body) ;
-    console.log("req.textBody",message)
-    const providedHmac = Buffer.from(hmac, "utf-8");
-    const generatedHash = Buffer.from(
-      crypto
-        .createHmac("sha256", process.env.SHOPIFY_API_SECRET ??'')
-        .update(typeof message === 'string' ? message: JSON.stringify(message))
-        .digest("base64"),
-      "utf-8"
-    );
-    let hashEquals = false;
-    try {
-      console.log("generatedHash",generatedHash);
-      console.log("providedHmac",providedHmac)
-      hashEquals = crypto.timingSafeEqual(generatedHash, providedHmac);
-    } catch (e) {
-      hashEquals = false;
-    }
-    if (!hashEquals) {
-    //  return res.status(400).send("HMAC validation failed");
-    }
-    const accessTokenRequestUrl =
-      "https://" + shop + "/admin/oauth/access_token";
-    const accessTokenPayload = {
-      client_id: process.env.SHOPIFY_API_KEY,
-      client_secret: process.env.SHOPIFY_API_SECRET,
-      code,
-    };
-    request
-      .post(accessTokenRequestUrl, { json: accessTokenPayload })
-
-      .then((accessTokenResponse) => {
-        const accessToken = accessTokenResponse.access_token;
-
-        const apiRequestURL = `https:// + ${shop} + /admin/shop.json`;
-
-        const apiRequestHeaders = {
-          "X-Shopify-Access-Token": accessToken,
-        };
-
-        request
-          .get(apiRequestURL, { headers: apiRequestHeaders })
-
-          .then((apiResponse) => {
-            res.end(apiResponse);
-          })
-
-          .catch((error) => {
-            res.status(error.statusCode).send(error.error.error_description);
-          });
-      })
-
-      .catch((error) => {
-        res.status(error.statusCode).send(error.error.error_description);
-      });
-  } else {
-    return res.status(400).send("required parameter missing");
-  }
-});*/
-const buildRedirectUri = () => `${appUrl}/shopify/callback`;
-
-const buildInstallUrl = (shop, state, redirectUri) => `https://${shop}/admin/oauth/authorize?client_id=${shopifyApiPublicKey}&scope=${scopes}&state=${state}&redirect_uri=${redirectUri}`;
-
-const buildAccessTokenRequestUrl = (shop) => `https://${shop}/admin/oauth/access_token`;
-
-const buildShopDataRequestUrl = (shop) => `https://${shop}/admin/shop.json`;
-
-const generateEncryptedHash = (params) => crypto.createHmac('sha256', shopifyApiSecretKey).update(params).digest('hex');
-
-app.get('/shopify/callback', async (req, res) => {
-  const { shop, code, state } = req.query;
-  if(req.headers.cookie === undefined){
-    return res.status(400).send("request origin cannot be found");
-  }
-  const stateCookie = cookie.parse(req.headers.cookie).state;
-
-  console.log("stateCookie,",stateCookie, "state",state,stateCookie===state)
-  if (state !== stateCookie) { return res.status(403).send('Cannot be verified')}
-
-  const { hmac, ...params } = req.query
-  const queryParams = querystring.stringify(params)
-  const hash = generateEncryptedHash(queryParams)
-
-  if (hash !== hmac) { return res.status(400).send('HMAC validation failed')}
-
-  try {
-    const data = {
-      client_id: shopifyApiPublicKey,
-      client_secret: shopifyApiSecretKey,
-      code
-    };
-    const tokenResponse = await fetchAccessToken(shop, data)
-
-    const { access_token } = tokenResponse.data
-
-    const shopData = await fetchShopData(shop, access_token)
-    res.send(shopData.data.shop)
-
-  } catch(err) {
-    console.log(err)
-    res.status(500).send('something went wrong')
-  }
-});
 
 app.use("/api/*", shopify.validateAuthenticatedSession());
 
@@ -231,10 +112,22 @@ app.use(express.json());
 app.use(csp);
 //app.use(isShopActive);
 app.get("/api/products/get", async (_req, res) => {
-  const Product = await shopify.api.rest.Product.all({
+  const Products = await shopify.api.rest.Product.all({
     session: res.locals.shopify.session,
   });
-  res.status(200).send(Product);
+  res.status(200).send(Products);
+});
+
+app.get("/api/products/get/:productId", async (_req, res) => {
+  const productId = _req.params.productId;
+  console.log("params", _req.params);
+  const Product = await shopify.api.rest.Product.find({
+    session: res.locals.shopify.session,
+    id: productId,
+    fields: 'id,title, variants,image'
+  });
+  console.log(Product)
+  return Product;
 });
 
 app.get("/api/products/count", async (_req, res) => {

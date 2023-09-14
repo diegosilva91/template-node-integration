@@ -34,5 +34,22 @@
     },
     "title": "Product Counter",
     "totalProductsHeading": "TOTAL PRODUCTS"
+  },
+  "CommentProduct": {
+    "product": "product",
+    "products": "products",
+    "refreshButton": "Reload Data",
+    "titlePage": "Products",
+    "backIndex": "Index"
+  },
+  "Products": {
+    "titleIndex": "Show Products"
+  },
+  "ProductListing": {
+    "showVariants": "showVariants",
+    "viewVarianLabel": "view Variants of Product"
+  },
+  "CommentProductId": {
+    "titlePage": "Detail Products"
   }
 }

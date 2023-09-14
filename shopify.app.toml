@@ -2,7 +2,7 @@
 
 name = "integration plus v1"
 client_id = "ff3b941e8550ebdf118f88c3cb1c269c"
-application_url = "https://constructed-along-memorial-tract.trycloudflare.com"
+application_url = "https://names-duration-series-savage.trycloudflare.com"
 embedded = true
 
 [access_scopes]
@@ -12,9 +12,9 @@ use_legacy_install_flow = true
 
 [auth]
 redirect_urls = [
-  "https://constructed-along-memorial-tract.trycloudflare.com/auth/callback",
-  "https://constructed-along-memorial-tract.trycloudflare.com/auth/shopify/callback",
-  "https://constructed-along-memorial-tract.trycloudflare.com/api/auth/callback"
+  "https://names-duration-series-savage.trycloudflare.com/auth/callback",
+  "https://names-duration-series-savage.trycloudflare.com/auth/shopify/callback",
+  "https://names-duration-series-savage.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]

@@ -1,0 +1,52 @@
+{
+  "HomePage": {
+    "heading": "¡Buen trabajo en la construcción de una aplicación Shopify 🎉",
+    "learnMore": "Aprende más sobre cómo desarrollar tu aplicación en <ShopifyTutorialLink>este tutorial de Shopify</ShopifyTutorialLink> 📚",
+    "startPopulatingYourApp": "¿Listo para empezar? Comienza a poblar tu aplicación con algunos productos de muestra para ver y probar en tu tienda.",
+    "title": "Nombre de la aplicación",
+    "trophyAltText": "¡Buen trabajo en la construcción de una aplicación Shopify!",
+    "yourAppIsReadyToExplore": "¡Tu aplicación está lista para explorar! Contiene todo lo que necesitas para comenzar, incluyendo el sistema de diseño <PolarisLink>Polaris</PolarisLink>, la <AdminApiLink>API de administración de Shopify</AdminApiLink> y la biblioteca y componentes de <AppBridgeLink>App Bridge</AppBridgeLink>."
+  },
+  "NavigationMenu": {
+    "pageName": "Nombre de la página"
+  },
+  "NotFound": {
+    "description": "Verifica la URL e intenta de nuevo, o utiliza la barra de búsqueda para encontrar lo que necesitas.",
+    "heading": "No hay una página en esta dirección"
+  },
+  "PageName": {
+    "body": "Cuerpo",
+    "heading": "Encabezado",
+    "primaryAction": "Acción principal",
+    "secondaryAction": "Acción secundaria",
+    "title": "Nombre de la página"
+  },
+  "ProductsCard": {
+    "description": "Se crean productos de muestra con un título y precio predeterminados. Puedes eliminarlos en cualquier momento.",
+    "errorCreatingProductsToast": "Hubo un error al crear productos",
+    "populateProductsButton": {
+      "one": "Poblar {{count}} producto",
+      "other": "Poblar {{count}} productos"
+    },
+    "productsCreatedToast": {
+      "one": "¡Se creó {{count}} producto!",
+      "other": "¡Se crearon {{count}} productos!"
+    },
+    "title": "Contador de Productos",
+    "totalProductsHeading": "TOTAL DE PRODUCTOS"
+  },
+  "CommentProduct": {
+    "product": "producto",
+    "products": "productos",
+    "refreshButton": "Recargar Datos",
+    "titlePage": "Productos",
+    "backIndex": "Inicio"
+  },
+  "Products": {
+    "titleIndex": "Mostrar Productos"
+  },
+  "ProductListing": {
+    "showVariants": "ver Variantes",
+    "viewVarianLabel": "Ver las variantes del product"
+  }
+}

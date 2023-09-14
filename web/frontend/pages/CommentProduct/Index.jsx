@@ -33,7 +33,7 @@ function CommentProductsIndex() {
   try {
     if (data) {
       contentAll = (
-        <ProductListing data={data?.data} isLoading={isLoadingData}></ProductListing>
+        <ProductListing data={data?.data} isLoading={isLoadingData} type={'product'}></ProductListing>
       );
       console.log(data);
     }

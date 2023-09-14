@@ -6,7 +6,7 @@ import {
 } from "@shopify/polaris";
 import { TickMinor, CancelMinor } from "@shopify/polaris-icons"
 import { useTranslation } from "react-i18next";
-export const ProductListing = ({ data, isLoading }) => {
+export const ProductListing = ({ data, isLoading, type }) => {
     const { t } = useTranslation();
     console.log(data)
     if (data === undefined) return <></>;
@@ -15,7 +15,14 @@ export const ProductListing = ({ data, isLoading }) => {
             items={data}
             totalItemsCount={data?.length ?? 0}
             renderItem={(item, index) => {
-                const { title, id, image, status, variants } = item;
+                const { title, id, image, status, variants, inventory_policy } = item;
+                let iconStatus;
+                if (type === 'product')
+                    iconStatus = status ? <Icon source={TickMinor} color="base" /> : <Icon source={CancelMinor} color="base" />
+                else if (type === 'variant')
+                    iconStatus = inventory_policy === "deny" ? <Icon source={TickMinor} color="base" /> : <Icon source={CancelMinor} color="base" />;
+                else
+                    iconStatus = undefined
                 const media = image?.src ?
                     <Avatar source={image?.src} customer size="medium" name={title}></Avatar> :
                     <Avatar customer size="medium" name={title}></Avatar>;
@@ -29,7 +36,7 @@ export const ProductListing = ({ data, isLoading }) => {
                         persistActions
                         accessibilityLabel={`View details for ${title}`}>
                         <Text variant="bodyMd" fontWeight="bold" as="h3">{title}</Text>
-                        {status ? <Icon source={TickMinor} color="base" /> : <Icon source={CancelMinor} color="base" />}
+                        {iconStatus}
                     </ResourceItem>
                 )
             }}
